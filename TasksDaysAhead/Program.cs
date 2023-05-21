@@ -19,7 +19,7 @@ void EnumFolderTasks(TaskFolder fld)
     }
     //today at 7am
     var today = DateTime.Today;
-    today = today.AddHours(7);
+    today = today.AddHours(int.Parse(ConfigurationManager.AppSettings["startHour"])).AddMinutes(int.Parse(ConfigurationManager.AppSettings["startMinute"]));
 
     int day = 1;
     tasks.OrderBy(o => int.Parse(o.Name)).ToList().ForEach(t =>
