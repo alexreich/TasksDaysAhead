@@ -25,14 +25,18 @@ void EnumFolderTasks(TaskFolder fld)
     tasks.OrderBy(o => int.Parse(o.Name)).ToList().ForEach(t =>
     {
         t.Enabled = true;
-
+        
         Console.WriteLine(t.Name);
         TaskDefinition td = t.Definition;
         t.Definition.Triggers.First().StartBoundary = today.AddDays(day);
+        
         Console.WriteLine(t.Definition.Triggers.First().StartBoundary);
         day++;
         td.Principal.RunLevel = TaskRunLevel.Highest;
-        TaskService.Instance.RootFolder.RegisterTaskDefinition(t.Name, t.Definition, TaskCreation.Update, ConfigurationManager.AppSettings["username"], ConfigurationManager.AppSettings["password"]);
+        td.Principal.LogonType = TaskLogonType.InteractiveToken;
+        td.Settings.MultipleInstances = TaskInstancesPolicy.IgnoreNew;
+        td.Settings.RunOnlyIfLoggedOn = true;
+        TaskService.Instance.RootFolder.RegisterTaskDefinition(t.Name, t.Definition, TaskCreation.Update, ConfigurationManager.AppSettings["username"], ConfigurationManager.AppSettings["password"], TaskLogonType.S4U);
     });
 
 }
