@@ -35,8 +35,8 @@ void EnumFolderTasks(TaskFolder fld)
         td.Principal.RunLevel = TaskRunLevel.Highest;
         td.Principal.LogonType = TaskLogonType.InteractiveToken;
         td.Settings.MultipleInstances = TaskInstancesPolicy.IgnoreNew;
-        td.Settings.RunOnlyIfLoggedOn = true;
-        TaskService.Instance.RootFolder.RegisterTaskDefinition(t.Name, t.Definition, TaskCreation.Update, ConfigurationManager.AppSettings["username"], ConfigurationManager.AppSettings["password"], TaskLogonType.S4U);
+        //td.Settings.RunOnlyIfLoggedOn = true;
+        TaskService.Instance.RootFolder.RegisterTaskDefinition(t.Name, t.Definition, TaskCreation.Update, ConfigurationManager.AppSettings["username"], ConfigurationManager.AppSettings["password"], TaskLogonType.InteractiveToken);
     });
 
 }
