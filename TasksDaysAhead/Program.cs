@@ -21,7 +21,7 @@ void EnumFolderTasks(TaskFolder fld)
     var today = DateTime.Today;
     today = today.AddHours(int.Parse(ConfigurationManager.AppSettings["startHour"])).AddMinutes(int.Parse(ConfigurationManager.AppSettings["startMinute"]));
 
-    int day = 1;
+    int day = int.Parse(ConfigurationManager.AppSettings["daysahead"]);
     tasks.OrderBy(o => int.Parse(o.Name)).ToList().ForEach(t =>
     {
         t.Enabled = true;
